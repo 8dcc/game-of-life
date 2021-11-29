@@ -12,8 +12,6 @@
 #define FPS 60
 #define DELAY 0		// Add a custom delay in ms BETWEEN FRAMES
 
-#define DEBUG_MODE 0
-
 int draw_grid(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
