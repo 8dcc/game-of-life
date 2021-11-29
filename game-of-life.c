@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "SDL.h"
 
-#define WINDOW_W 500
-#define WINDOW_H 500
-#define CELL_SIZE 10
+#define WINDOW_W 1200
+#define WINDOW_H 750
+#define CELL_SIZE 15
 
 #define BACKGROUND_COLOR 20		// Will be used as rgb. Yes, only gray because it is elegant.
 #define CELL_COLOR 200			// Color to display cells
@@ -11,6 +11,8 @@
 
 #define FPS 60
 #define DELAY 0		// Add a custom delay in ms BETWEEN FRAMES
+
+#define DEBUG_MODE 0
 
 int draw_grid(SDL_Renderer* renderer);
 
@@ -32,7 +34,7 @@ int main(int argc, char* argv[]) {
 	printf("SLD started!\n");
 	
 	// Create window
-	SDL_Window* fuckwindows = SDL_CreateWindow("I am a test!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_W, WINDOW_H, 0);  // Don't know the meaning of the 0
+	SDL_Window* fuckwindows = SDL_CreateWindow("Conway's game of life", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_W, WINDOW_H, 0); 
 	if (!fuckwindows) {
 		printf("Error creating a window: %s\n", SDL_GetError());
 		SDL_Quit();
@@ -68,7 +70,7 @@ int main(int argc, char* argv[]) {
 					// Check the pressed key
 					switch (fuckevents.key.keysym.scancode) {
 						case SDL_SCANCODE_ESCAPE:
-							running = 0;
+							running = 1;
 							printf("Esc key pressed!\n");
 							break;
 						case SDL_SCANCODE_G:
@@ -112,8 +114,12 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.button.button) {
 						case SDL_BUTTON_LEFT:
 							mouse_pressed = 1;
-							cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 1;
-							printf("LMouse key released! Setting cell [%d,%d] to 1.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE);
+							if (cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] == 1) {
+								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 0;
+							} else {
+								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 1;
+							}
+							printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
 							break;
 						default:
 							break;
