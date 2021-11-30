@@ -11,5 +11,5 @@ Name                     | Description
 `int`-`CELL_COLOR`       | Will be used as RGB value for the living cells.
 `int`-`GRID_COLOR`       | Will be used as RGB value for the grid.
 `int`-`FPS`              | In ms. The program will wait 1000/FPS (1000 / 60 = 16ms between frames).
-`int`-`DELAY`            | If the space is pressed (simulation active) the delay between frames will be switched to this.<br>(Instead of 16ms for example).
-`int`-`DEBUG_PRINT`      | If 0, the program will print information about keypresses and cell interactions in the terminal.
+`int`-`DELAY`            | If the space is pressed the delay between frames will be switched to this.<br>(Instead of 16ms for example).
+`int`-`DEBUG_PRINT`      | If 0, the program will print information about keypresses and cell interactions.
