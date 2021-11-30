@@ -10,7 +10,7 @@
 #define GRID_COLOR 75			// Color for the g grid.
 
 #define FPS 60			// Will wait 1000ms/FPS between frames
-#define DELAY 500		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
+#define DELAY 250		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
 
 #define DEBUG_PRINT 1
 
@@ -18,11 +18,13 @@ int draw_grid(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
 	int cell_grid[WINDOW_H/CELL_SIZE][WINDOW_W/CELL_SIZE];
+	int cell_grid_aux[WINDOW_H/CELL_SIZE][WINDOW_W/CELL_SIZE];
 	
 	// Clear the array
 	for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 		for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 			cell_grid[y][x] = 0;
+			cell_grid_aux[y][x] = 0;
 		}
 	}
 
@@ -72,7 +74,9 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.key.keysym.scancode) {
 						case SDL_SCANCODE_ESCAPE:
 							running = 1;
-							printf("Esc key pressed!\n");
+							if (DEBUG_PRINT == 0) {
+								printf("Esc key pressed!\n");
+							}
 							break;
 						case SDL_SCANCODE_G:
 							if (draw_grid_active == 0) {
@@ -80,11 +84,15 @@ int main(int argc, char* argv[]) {
 							} else {
 								draw_grid_active = 0;
 							}
-							printf("G key pressed!\n");
+							if (DEBUG_PRINT == 0) {
+								printf("G key pressed!\n");
+							}
 							break;
 						case SDL_SCANCODE_SPACE:
 							space_pressed = 0;
-							//printf("Space key pressed!\n");
+							if (DEBUG_PRINT == 0) {
+								//printf("Space key pressed!\n");
+							}
 							break;
 						default:
 							break;
@@ -95,7 +103,9 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.key.keysym.scancode) {
 						case SDL_SCANCODE_SPACE:
 							space_pressed = 1;
-							printf("Space key released!\n");
+							if (DEBUG_PRINT == 0) {
+								printf("Space key released!\n");
+							}
 							break;
 						default:
 							break;
@@ -107,7 +117,9 @@ int main(int argc, char* argv[]) {
 							mouse_x = fuckevents.motion.x-2;
 							mouse_y = fuckevents.motion.y-2;
 							mouse_pressed = 0;
-							printf("LMouse key pressed at %d %d!\n", mouse_x, mouse_y);
+							if (DEBUG_PRINT == 0) {
+								printf("LMouse key pressed at %d %d!\n", mouse_x, mouse_y);
+							}
 							break;
 						default:
 							break;
@@ -122,7 +134,9 @@ int main(int argc, char* argv[]) {
 							} else {
 								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 1;
 							}
-							printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
+							if (DEBUG_PRINT == 0) {
+								printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
+							}
 							break;
 						default:
 							break;
@@ -168,18 +182,26 @@ int main(int argc, char* argv[]) {
 
 					// Based on the close cells, apply rule
 					if (cell_grid[y][x] == 1) {
-						if (close_cell_count < 2 || close_cell_count > 4) {
-							cell_grid[y][x] = 0;
+						if (close_cell_count < 2 || close_cell_count > 3) {
+							cell_grid_aux[y][x] = 0;
 						} else {
-							cell_grid[y][x] = 1;
+							cell_grid_aux[y][x] = 1;
 						}
 					} else {
 						if (close_cell_count == 3) {
-							cell_grid[y][x] = 1;
+							cell_grid_aux[y][x] = 1;
+						} else {
+							cell_grid_aux[y][x] = 0;	
 						}
 					}
 				}
 			}
+			// Write to the main array
+			for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
+				for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
+					cell_grid[y][x] = cell_grid_aux[y][x];
+				}
+			}	
 		}
 		// Draw cells depending on the array
 		SDL_SetRenderDrawColor(fuckrenderers, CELL_COLOR, CELL_COLOR, CELL_COLOR, 255);
