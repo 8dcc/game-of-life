@@ -14,7 +14,7 @@ Key      | Action
 ---------|------------
 `Esc`    | Exit.
 `LMouse` | Change the cell's state.
-`Space`  | Window height in pixels.
+`Space`  | Hold to start the game of life simulation.
 `G`      | Togge grid.
 `S`      | Save current state.
 `L`      | Load current state (Not working).
