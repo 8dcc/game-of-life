@@ -12,6 +12,8 @@
 #define FPS 60			// Will wait 1000ms/FPS between frames
 #define DELAY 500		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
 
+#define DEBUG_PRINT 1
+
 int draw_grid(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
@@ -158,12 +160,24 @@ int main(int argc, char* argv[]) {
 					} 
 
 					// Debug
-					if (close_cell_count > 0 && cell_grid[y][x] == 1) {
-						printf("Position [%d,%d] has %d cells close.\n", y, x, close_cell_count);
+					if (DEBUG_PRINT == 0) {
+						if (close_cell_count > 0 && cell_grid[y][x] == 1) {
+							printf("Position [%d,%d] has %d cells close.\n", y, x, close_cell_count);
+						}
 					}
 
 					// Based on the close cells, apply rule
-
+					if (cell_grid[y][x] == 1) {
+						if (close_cell_count < 2 || close_cell_count > 4) {
+							cell_grid[y][x] = 0;
+						} else {
+							cell_grid[y][x] = 1;
+						}
+					} else {
+						if (close_cell_count == 3) {
+							cell_grid[y][x] = 1;
+						}
+					}
 				}
 			}
 		}
