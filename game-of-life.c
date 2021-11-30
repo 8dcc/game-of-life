@@ -10,7 +10,7 @@
 #define GRID_COLOR 75			// Color for the g grid.
 
 #define FPS 60			// Will wait 1000ms/FPS between frames
-#define DELAY 250		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
+#define DELAY 100		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
 
 #define DEBUG_PRINT 1
 
@@ -56,9 +56,11 @@ int main(int argc, char* argv[]) {
 	printf("Renderer created!\n");
 
 	// Main loop
-	int running = 0, draw_grid_active = 0, close_cell_count = 0;
-	int space_pressed = 1;
+	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
+	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1;
 	int mouse_pressed = 1, mouse_x, mouse_y;
+	char loadstate[WINDOW_H/CELL_SIZE*WINDOW_W/CELL_SIZE+1000];
+	FILE *savefile, *loadfile;
 	SDL_Rect current_cell;
 	SDL_Event fuckevents;	// Create an event for the keys and shit
 	while (running == 0) {
@@ -94,6 +96,18 @@ int main(int argc, char* argv[]) {
 								//printf("Space key pressed!\n");
 							}
 							break;
+						case SDL_SCANCODE_S:
+							save_key_pressed = 0;
+							if (DEBUG_PRINT == 0) {
+								printf("Save key pressed!\n");
+							}
+							break;
+						case SDL_SCANCODE_L:
+							load_key_pressed = 0;
+							if (DEBUG_PRINT == 0) {
+								printf("Load key pressed!\n");
+							}
+							break;
 						default:
 							break;
 					}
@@ -105,6 +119,56 @@ int main(int argc, char* argv[]) {
 							space_pressed = 1;
 							if (DEBUG_PRINT == 0) {
 								printf("Space key released!\n");
+							}
+							break;
+						case SDL_SCANCODE_S:
+							save_key_pressed = 1;
+							
+							// Save the current state of the game
+							savefile = fopen("./progress.txt", "w+");
+							if (savefile == NULL) {
+								printf("There was am error opening the file for saving.\n");
+								break;
+							}
+
+							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
+								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
+									fprintf(savefile, "%d", cell_grid[y][x]);
+								}
+							}
+							fclose(savefile);
+							printf("File saved as progress.txt!\n");
+
+							if (DEBUG_PRINT == 0) {
+								printf("Save key released!\n");
+							}
+							break;
+						case SDL_SCANCODE_L:
+							load_key_pressed = 1;
+							
+							// Save the current state of the game
+							if ((loadfile = fopen("./progress.txt", "r")) == NULL) {
+								printf("There was am error opening the file for loading.\n");
+								break;
+							}
+
+							fscanf(loadfile, "%s", loadstate);
+
+							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
+								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
+									// Not read a position longer than the loadfile size
+									if ( current_load_pos < (sizeof(loadstate)/sizeof(loadstate[0])) ) {
+										cell_grid[y][x] = loadstate[current_load_pos]-48;
+									}
+									current_load_pos++;
+								}
+							}
+							
+							fclose(savefile);
+							printf("File saved as progress.txt!\n");
+
+							if (DEBUG_PRINT == 0) {
+								printf("Load key released!\n");
 							}
 							break;
 						default:
@@ -203,6 +267,7 @@ int main(int argc, char* argv[]) {
 				}
 			}	
 		}
+		
 		// Draw cells depending on the array
 		SDL_SetRenderDrawColor(fuckrenderers, CELL_COLOR, CELL_COLOR, CELL_COLOR, 255);
 		for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
@@ -216,10 +281,12 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
+		
 		// Draw grid if active (after clear)
 		if (draw_grid_active == 0) {
 			draw_grid(fuckrenderers);
 		}
+		
 		// Send to window
 		SDL_RenderPresent(fuckrenderers);
 		if (space_pressed == 0 && DELAY != 0) {
