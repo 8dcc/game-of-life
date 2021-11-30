@@ -1,5 +1,12 @@
-# Game of life
-**Conway's game of life in C using sdl2.**
+<div align="center">
+	<h1>Game of life</h1>
+	<b><a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life">Conway's game of life</a> made in C using <a href="https://www.libsdl.org/index.php">sdl2</a>.</b><br><br>
+	<a href="https://github.com/r4v10l1/game-of-life/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/game-of-life.svg?style=for-the-badge&logo=c&color=a8b9cc&logoColor=a8b9cc" alt="Forks"></a>
+	<a href="https://github.com/r4v10l1/game-of-life/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/game-of-life.svg?style=for-the-badge&logo=c&color=a8b9cc&logoColor=a8b9cc" alt="Stars"></a>
+</div>
+
+# Table of contents
+1. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
 
 ## Configuration
 Name                     | Description
