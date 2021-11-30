@@ -6,7 +6,18 @@
 </div>
 
 # Table of contents
+1. [Keys](https://github.com/r4v10l1/game-of-life#Keys)
 1. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
+
+## Keys
+Key      | Action
+---------|------------
+`Esc`    | Exit.
+`LMouse` | Change the cell's state.
+`Space`  | Window height in pixels.
+`G`      | Togge grid.
+`S`      | Save current state.
+`L`      | Load current state (Not working).
 
 ## Configuration
 Name                     | Description
