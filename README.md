@@ -17,7 +17,7 @@ Key      | Action
 `Space`  | Hold to start the game of life simulation.
 `G`      | Togge grid.
 `S`      | Save current state.
-`L`      | Load current state (Not working).
+`L`      | Load current state.
 
 ## Configuration
 Name                     | Description
