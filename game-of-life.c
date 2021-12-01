@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 
 	// Main loop
 	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
-	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1;
+	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1, clear_key_pressed = 1, random_cells_key_pressed = 1;
 	int mouse_pressed = 1, mouse_x, mouse_y;
 	FILE *savefile, *loadfile;
 	SDL_Rect current_cell;
@@ -111,6 +111,18 @@ int main(int argc, char* argv[]) {
 							load_key_pressed = 0;
 							if (DEBUG_PRINT == 0) {
 								printf("Load key pressed!\n");
+							}
+							break;
+						case SDL_SCANCODE_C:
+							clear_key_pressed = 0;
+							if (DEBUG_PRINT == 0) {
+								printf("Clear key pressed!\n");
+							}
+							break;
+						case SDL_SCANCODE_R:
+							random_cells_key_pressed = 0;
+							if (DEBUG_PRINT == 0) {
+								printf("Random cell key pressed!\n");
 							}
 							break;
 						default:
@@ -177,6 +189,26 @@ int main(int argc, char* argv[]) {
 
 							if (DEBUG_PRINT == 0) {
 								printf("Load key released!\n");
+							}
+							break;
+						case SDL_SCANCODE_C:
+							clear_key_pressed = 1;
+
+							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
+								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
+									cell_grid[y][x] = 0;
+								}
+							}
+
+							if (DEBUG_PRINT == 0) {
+								printf("Clear key released!\n");
+							}
+							break;
+						case SDL_SCANCODE_R:
+							random_cells_key_pressed = 1;
+
+							if (DEBUG_PRINT == 0) {
+								printf("Random cell key released!\n");
 							}
 							break;
 						default:
