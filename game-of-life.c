@@ -55,11 +55,16 @@ int main(int argc, char* argv[]) {
 	}
 	printf("Renderer created!\n");
 
+	// Create array for load function and clear it
+	char loadstate[5000];
+	for (int n = 0; n < 5000; n++) {
+		loadstate[n] = '0';
+	}
+
 	// Main loop
 	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
 	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1;
 	int mouse_pressed = 1, mouse_x, mouse_y;
-	char loadstate[WINDOW_H/CELL_SIZE*WINDOW_W/CELL_SIZE+1000];
 	FILE *savefile, *loadfile;
 	SDL_Rect current_cell;
 	SDL_Event fuckevents;	// Create an event for the keys and shit
@@ -137,6 +142,7 @@ int main(int argc, char* argv[]) {
 								}
 							}
 							fclose(savefile);
+
 							printf("File saved as progress.txt!\n");
 
 							if (DEBUG_PRINT == 0) {
@@ -147,25 +153,27 @@ int main(int argc, char* argv[]) {
 							load_key_pressed = 1;
 							
 							// Save the current state of the game
-							if ((loadfile = fopen("./progress.txt", "r")) == NULL) {
+							loadfile = fopen("./progress.txt", "r");
+							if (loadfile == NULL) {
 								printf("There was am error opening the file for loading.\n");
 								break;
 							}
 
-							fscanf(loadfile, "%s", loadstate);
+							fscanf(loadfile, "%s", &loadstate);
 
 							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 									// Not read a position longer than the loadfile size
-									if ( current_load_pos < (sizeof(loadstate)/sizeof(loadstate[0])) ) {
+									if (current_load_pos < 5000) {
 										cell_grid[y][x] = loadstate[current_load_pos]-48;
 									}
 									current_load_pos++;
 								}
 							}
+							current_load_pos = 0;
+							fclose(loadfile);
 							
-							fclose(savefile);
-							printf("File saved as progress.txt!\n");
+							printf("File loaded as progress.txt!\n");
 
 							if (DEBUG_PRINT == 0) {
 								printf("Load key released!\n");
@@ -296,13 +304,11 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	// End of the program	
+	// End of the program
 	printf("Reached end of the program!\n");
 	SDL_DestroyRenderer(fuckrenderers);
 	SDL_DestroyWindow(fuckwindows);
 	SDL_Quit();
-
-	return 0;
 }
 
 int draw_grid(SDL_Renderer* fuckrenderers) {
