@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 	// Main loop
 	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
 	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1, clear_key_pressed = 1, random_cells_key_pressed = 1;
-	int mouse_pressed = 1, mouse_x, mouse_y;
+	int mouse_pressed = 1, mouse_r_pressed = 1, mouse_x, mouse_y, mouser_x, mouser_y;
 	FILE *savefile, *loadfile;
 	SDL_Rect current_cell;
 	SDL_Event fuckevents;	// Create an event for the keys and shit
@@ -225,6 +225,14 @@ int main(int argc, char* argv[]) {
 								printf("LMouse key pressed at %d %d!\n", mouse_x, mouse_y);
 							}
 							break;
+						case SDL_BUTTON_RIGHT:
+							mouse_x = fuckevents.motion.x-2;
+							mouse_y = fuckevents.motion.y-2;
+							mouse_r_pressed = 0;
+							if (DEBUG_PRINT == 0) {
+								printf("RMouse key pressed at %d %d!\n", mouse_x, mouse_y);
+							}
+							break;
 						default:
 							break;
 					}
@@ -233,13 +241,46 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.button.button) {
 						case SDL_BUTTON_LEFT:
 							mouse_pressed = 1;
+
 							if (cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] == 1) {
 								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 0;
 							} else {
 								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 1;
 							}
+							
 							if (DEBUG_PRINT == 0) {
 								printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
+							}
+							break;
+						case SDL_BUTTON_RIGHT:
+							mouse_r_pressed = 1;
+
+							if (mouse_y > fuckevents.motion.y-2) {
+								mouser_y = mouse_y;
+								mouse_y = fuckevents.motion.y-2;
+							} else {
+								mouser_y = fuckevents.motion.y-2;
+							}
+
+							if (mouse_x > fuckevents.motion.x-2) {
+								mouser_x = mouse_x;
+								mouse_x = fuckevents.motion.x-2;
+							} else {
+								mouser_x = fuckevents.motion.x-2;
+							}
+
+							for (int y = mouse_y/CELL_SIZE; y < mouser_y/CELL_SIZE; y++) {
+								for (int x = mouse_x/CELL_SIZE; x < mouser_x/CELL_SIZE; x++) {
+									if (cell_grid[y][x] == 1) {
+										cell_grid[y][x] = 0;
+									} else {
+										cell_grid[y][x] = 1;
+									}
+								}
+							}
+							
+							if (DEBUG_PRINT == 0) {
+								printf("RMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
 							}
 							break;
 						default:
