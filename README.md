@@ -7,7 +7,7 @@
 
 # Table of contents
 1. [Keys](https://github.com/r4v10l1/game-of-life#Keys)
-1. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
+2. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
 
 ## Keys
 Key      | Action
