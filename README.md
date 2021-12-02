@@ -20,7 +20,7 @@ Key      | Action
 `S`      | Save current state.
 `L`      | Load current state.
 `C`      | Clear (Set state of all cells to 0).
-`R`      | Random state (Not yet implemented).
+`R`      | Random state.
 
 ## Configuration
 Name                     | Description
