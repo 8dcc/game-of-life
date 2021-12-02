@@ -1,18 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>  // For random numbers
 #include "SDL.h"
 
 #define WINDOW_W 1200		// Window width in pixels
 #define WINDOW_H 750		// Window height in pixels
-#define CELL_SIZE 15		// Cell size in pixels
+#define CELL_SIZE 10		// Cell size in pixels
 
 #define BACKGROUND_COLOR 20		// Will be used as rgb. Yes, only gray because it is elegant.
 #define CELL_COLOR 200			// Color to display cells
 #define GRID_COLOR 75			// Color for the g grid.
 
 #define FPS 60			// Will wait 1000ms/FPS between frames
-#define DELAY 100		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
+#define DELAY 50		// Will set this as delay instead of the fps if the value is not 0 and the space is pressed
 
 #define DEBUG_PRINT 1
+#define LOAD_ARRAY_SIZE 10000
 
 int draw_grid(SDL_Renderer* renderer);
 
@@ -56,8 +58,8 @@ int main(int argc, char* argv[]) {
 	printf("Renderer created!\n");
 
 	// Create array for load function and clear it
-	char loadstate[5000];
-	for (int n = 0; n < 5000; n++) {
+	char loadstate[LOAD_ARRAY_SIZE];
+	for (int n = 0; n < LOAD_ARRAY_SIZE; n++) {
 		loadstate[n] = '0';
 	}
 
@@ -176,7 +178,7 @@ int main(int argc, char* argv[]) {
 							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 									// Not read a position longer than the loadfile size
-									if (current_load_pos < 5000) {
+									if (current_load_pos < LOAD_ARRAY_SIZE) {
 										cell_grid[y][x] = loadstate[current_load_pos]-48;
 									}
 									current_load_pos++;
@@ -206,6 +208,12 @@ int main(int argc, char* argv[]) {
 							break;
 						case SDL_SCANCODE_R:
 							random_cells_key_pressed = 1;
+
+							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
+								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
+									cell_grid[y][x] = rand() % 2;
+								}
+							}
 
 							if (DEBUG_PRINT == 0) {
 								printf("Random cell key released!\n");
@@ -269,8 +277,8 @@ int main(int argc, char* argv[]) {
 								mouser_x = fuckevents.motion.x-2;
 							}
 
-							for (int y = mouse_y/CELL_SIZE; y < mouser_y/CELL_SIZE; y++) {
-								for (int x = mouse_x/CELL_SIZE; x < mouser_x/CELL_SIZE; x++) {
+							for (int y = mouse_y/CELL_SIZE; y <= mouser_y/CELL_SIZE; y++) {
+								for (int x = mouse_x/CELL_SIZE; x <= mouser_x/CELL_SIZE; x++) {
 									if (cell_grid[y][x] == 1) {
 										cell_grid[y][x] = 0;
 									} else {
