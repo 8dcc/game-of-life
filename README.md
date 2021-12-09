@@ -14,7 +14,7 @@ Key      | Action
 ---------|------------
 `Esc`    | Exit.
 `LMouse` | Change the cell's state individually.
-`LMouse` | Change the cell's state (drag).
+`RMouse` | Change the cell's state (drag).
 `Space`  | Hold to start the game of life simulation.
 `G`      | Togge grid.
 `S`      | Save current state.
