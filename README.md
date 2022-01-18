@@ -8,6 +8,7 @@
 # Table of contents
 1. [Keys](https://github.com/r4v10l1/game-of-life#Keys)
 2. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
+2. [Misc](https://github.com/r4v10l1/game-of-life#Misc)
 
 ## Keys
 Key      | Action
@@ -34,3 +35,6 @@ Name                     | Description
 `int`-`FPS`              | In ms. The program will wait 1000/FPS (1000 / 60 = 16ms between frames).
 `int`-`DELAY`            | If the space is pressed the delay between frames will be switched to this.<br>(Instead of 16ms for example).
 `int`-`DEBUG_PRINT`      | If 0, the program will print information about keypresses and cell interactions.
+
+## Misc
+- [SDL2 window template](https://gist.github.com/r4v10l1/a2fe5c689ebb7682f5d9c008df9cd17d)
