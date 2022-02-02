@@ -17,9 +17,10 @@ Key      | Action
 `LMouse` | Change the cell's state individually.
 `RMouse` | Change the cell's state (drag).
 `Space`  | Hold to start the game of life simulation.
+`H`      | Show help in console.
 `G`      | Togge grid.
 `S`      | Save current state.
-`L`      | Load current state.
+`L`      | Load saved state.
 `C`      | Clear (Set state of all cells to 0).
 `R`      | Random state.
 
