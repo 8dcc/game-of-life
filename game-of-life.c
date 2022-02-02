@@ -1,3 +1,13 @@
+/*
+ *	Game of life made by https://github.com/r4v10l1
+ *	Feel free to fork and improve the code.
+ *
+ *	Using SDL2.
+ *
+ *	In this code, variables with value 0 generally mean ON
+ *	and with value 1, OFF.
+ * */
+
 #include <stdio.h>
 #include <stdlib.h>  // For random numbers
 #include "SDL.h"
@@ -17,6 +27,7 @@
 #define LOAD_ARRAY_SIZE 10000
 
 int draw_grid(SDL_Renderer* renderer);
+void print_help();
 
 int main(int argc, char* argv[]) {
 	int cell_grid[WINDOW_H/CELL_SIZE][WINDOW_W/CELL_SIZE];
@@ -63,6 +74,8 @@ int main(int argc, char* argv[]) {
 		loadstate[n] = '0';
 	}
 
+	printf("Press H to show the help!\n");
+
 	// Main loop
 	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
 	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1, clear_key_pressed = 1, random_cells_key_pressed = 1;
@@ -99,9 +112,6 @@ int main(int argc, char* argv[]) {
 							break;
 						case SDL_SCANCODE_SPACE:
 							space_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								//printf("Space key pressed!\n");
-							}
 							break;
 						case SDL_SCANCODE_S:
 							save_key_pressed = 0;
@@ -126,6 +136,9 @@ int main(int argc, char* argv[]) {
 							if (DEBUG_PRINT == 0) {
 								printf("Random cell key pressed!\n");
 							}
+							break;
+						case SDL_SCANCODE_H:
+							print_help();
 							break;
 						default:
 							break;
@@ -401,4 +414,17 @@ int draw_grid(SDL_Renderer* fuckrenderers) {
 		SDL_RenderDrawLine(fuckrenderers, 0, y_grid, WINDOW_W, y_grid);
 	}
 	return 0;
+}
+
+void print_help() {
+	printf("\n%7s - Show this help\n", "H");
+	printf("%7s - Exit the program\n", "Esc");
+	printf("%7s - Change the cell's state individually\n", "LMouse");
+	printf("%7s - Change the cell's state (drag)\n", "RMouse");
+	printf("%7s - Hold to start the game of life simulation\n", "Space");
+	printf("%7s - Togge grid.\n", "G");
+	printf("%7s - Save current state (progress.txt)\n", "S");
+	printf("%7s - Load saved state\n", "L");
+	printf("%7s - Clear (Set state of all cells to 0)\n", "C");
+	printf("%7s - Random state\n\n", "R");
 }
