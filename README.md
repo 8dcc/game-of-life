@@ -8,7 +8,8 @@
 # Table of contents
 1. [Keys](https://github.com/r4v10l1/game-of-life#Keys)
 2. [Configuration](https://github.com/r4v10l1/game-of-life#Configuration)
-2. [Misc](https://github.com/r4v10l1/game-of-life#Misc)
+3. [Misc](https://github.com/r4v10l1/game-of-life#Misc)
+4. [TODO](https://github.com/r4v10l1/game-of-life#TODO)
 
 ## Keys
 Key      | Action
@@ -39,3 +40,6 @@ Name                     | Description
 
 ## Misc
 - [SDL2 window template](https://gist.github.com/r4v10l1/a2fe5c689ebb7682f5d9c008df9cd17d)
+
+## TODO
+- [ ] Make saves independent on the array size (resolution)
