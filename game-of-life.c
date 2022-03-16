@@ -96,46 +96,30 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.key.keysym.scancode) {
 						case SDL_SCANCODE_ESCAPE:
 							running = 1;
-							if (DEBUG_PRINT == 0) {
-								printf("Esc key pressed!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Esc key pressed!\n");
 							break;
 						case SDL_SCANCODE_G:
-							if (draw_grid_active == 0) {
-								draw_grid_active = 1;
-							} else {
-								draw_grid_active = 0;
-							}
-							if (DEBUG_PRINT == 0) {
-								printf("G key pressed!\n");
-							}
+							draw_grid_active = !draw_grid_active;
+							if (DEBUG_PRINT == 0) printf("G key pressed!\n");
 							break;
 						case SDL_SCANCODE_SPACE:
 							space_pressed = 0;
 							break;
 						case SDL_SCANCODE_S:
 							save_key_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("Save key pressed!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Save key pressed!\n");
 							break;
 						case SDL_SCANCODE_L:
 							load_key_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("Load key pressed!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Load key pressed!\n");
 							break;
 						case SDL_SCANCODE_C:
 							clear_key_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("Clear key pressed!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Clear key pressed!\n");
 							break;
 						case SDL_SCANCODE_R:
 							random_cells_key_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("Random cell key pressed!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Random cell key pressed!\n");
 							break;
 						case SDL_SCANCODE_H:
 							print_help();
@@ -149,9 +133,7 @@ int main(int argc, char* argv[]) {
 					switch (fuckevents.key.keysym.scancode) {
 						case SDL_SCANCODE_SPACE:
 							space_pressed = 1;
-							if (DEBUG_PRINT == 0) {
-								printf("Space key released!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Space key released!\n");
 							break;
 						case SDL_SCANCODE_S:
 							save_key_pressed = 1;
@@ -172,9 +154,7 @@ int main(int argc, char* argv[]) {
 
 							printf("File saved as progress.txt!\n");
 
-							if (DEBUG_PRINT == 0) {
-								printf("Save key released!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Save key released!\n");
 							break;
 						case SDL_SCANCODE_L:
 							load_key_pressed = 1;
@@ -202,9 +182,7 @@ int main(int argc, char* argv[]) {
 							
 							printf("File loaded as progress.txt!\n");
 
-							if (DEBUG_PRINT == 0) {
-								printf("Load key released!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Load key released!\n");
 							break;
 						case SDL_SCANCODE_C:
 							clear_key_pressed = 1;
@@ -215,9 +193,7 @@ int main(int argc, char* argv[]) {
 								}
 							}
 
-							if (DEBUG_PRINT == 0) {
-								printf("Clear key released!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Clear key released!\n");
 							break;
 						case SDL_SCANCODE_R:
 							random_cells_key_pressed = 1;
@@ -228,9 +204,7 @@ int main(int argc, char* argv[]) {
 								}
 							}
 
-							if (DEBUG_PRINT == 0) {
-								printf("Random cell key released!\n");
-							}
+							if (DEBUG_PRINT == 0) printf("Random cell key released!\n");
 							break;
 						default:
 							break;
@@ -242,17 +216,13 @@ int main(int argc, char* argv[]) {
 							mouse_x = fuckevents.motion.x-2;
 							mouse_y = fuckevents.motion.y-2;
 							mouse_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("LMouse key pressed at %d %d!\n", mouse_x, mouse_y);
-							}
+							if (DEBUG_PRINT == 0) printf("LMouse key pressed at %d %d!\n", mouse_x, mouse_y);
 							break;
 						case SDL_BUTTON_RIGHT:
 							mouse_x = fuckevents.motion.x-2;
 							mouse_y = fuckevents.motion.y-2;
 							mouse_r_pressed = 0;
-							if (DEBUG_PRINT == 0) {
-								printf("RMouse key pressed at %d %d!\n", mouse_x, mouse_y);
-							}
+							if (DEBUG_PRINT == 0) printf("RMouse key pressed at %d %d!\n", mouse_x, mouse_y);
 							break;
 						default:
 							break;
@@ -269,9 +239,7 @@ int main(int argc, char* argv[]) {
 								cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE] = 1;
 							}
 							
-							if (DEBUG_PRINT == 0) {
-								printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
-							}
+							if (DEBUG_PRINT == 0) printf("LMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
 							break;
 						case SDL_BUTTON_RIGHT:
 							mouse_r_pressed = 1;
@@ -300,9 +268,7 @@ int main(int argc, char* argv[]) {
 								}
 							}
 							
-							if (DEBUG_PRINT == 0) {
-								printf("RMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
-							}
+							if (DEBUG_PRINT == 0) printf("RMouse key released! Setting cell [%d,%d] to %d.\n", mouse_y/CELL_SIZE, mouse_x/CELL_SIZE, cell_grid[mouse_y/CELL_SIZE][mouse_x/CELL_SIZE]);
 							break;
 						default:
 							break;
@@ -385,9 +351,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 		// Draw grid if active (after clear)
-		if (draw_grid_active == 0) {
-			draw_grid(fuckrenderers);
-		}
+		if (draw_grid_active == 0) draw_grid(fuckrenderers);
 		
 		// Send to window
 		SDL_RenderPresent(fuckrenderers);
