@@ -26,17 +26,17 @@ Key      | Action
 `R`      | Random state.
 
 ## Configuration
-Name                     | Description
--------------------------|--------------
-`int`-`WINDOW_H`         | Window height in pixels.
-`int`-`WINDOW_W`         | Window width in pixels.
-`int`-`CELL_SIZE`        | Cell size in pixels.
-`int`-`BACKGROUND_COLOR` | Will be used as RGB value for the background.<br>For example `34 = RGB(34, 34, 34) = #222222`.
-`int`-`CELL_COLOR`       | Will be used as RGB value for the living cells.
-`int`-`GRID_COLOR`       | Will be used as RGB value for the grid.
-`int`-`FPS`              | In ms. The program will wait 1000/FPS (1000 / 60 = 16ms between frames).
-`int`-`DELAY`            | If the space is pressed the delay between frames will be switched to this.<br>(Instead of 16ms for example).
-`int`-`DEBUG_PRINT`      | If 0, the program will print information about keypresses and cell interactions.
+Name               | Description
+-------------------|--------------
+`WINDOW_H`         | Window height in pixels.
+`WINDOW_W`         | Window width in pixels.
+`CELL_SIZE`        | Cell size in pixels.
+`BACKGROUND_COLOR` | Will be used as RGB value for the background.<br>For example `34 = RGB(34, 34, 34) = #222222`.
+`CELL_COLOR`       | Will be used as RGB value for the living cells.
+`GRID_COLOR`       | Will be used as RGB value for the grid.
+`FPS`              | In ms. The program will wait 1000/FPS (1000 / 60 = 16ms between frames).
+`DELAY`            | If the space is pressed the delay between frames will be switched to this.<br>(Instead of 16ms for example).
+`DEBUG_PRINT`      | If 0, the program will print information about keypresses and cell interactions.
 
 ## Misc
 - [SDL2 window template](https://gist.github.com/r4v10l1/a2fe5c689ebb7682f5d9c008df9cd17d)
