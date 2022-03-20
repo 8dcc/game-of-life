@@ -12,18 +12,18 @@
 4. [TODO](https://github.com/r4v10l1/game-of-life#TODO)
 
 ## Keys
-Key      | Action
----------|------------
-`Esc`    | Exit.
-`LMouse` | Change the cell's state individually.
-`RMouse` | Change the cell's state (drag).
-`Space`  | Hold to start the game of life simulation.
-`H`      | Show help in console.
-`G`      | Togge grid.
-`S`      | Save current state.
-`L`      | Load saved state.
-`C`      | Clear (Set state of all cells to 0).
-`R`      | Random state.
+Key               | Action
+------------------|------------
+<kbd>Esc</kbd>    | Exit.
+<kbd>LMouse</kbd> | Change the cell's state individually.
+<kbd>RMouse</kbd> | Change the cell's state (drag).
+<kbd>Space</kbd>  | Hold to start the game of life simulation.
+<kbd>H</kbd>      | Show help in console.
+<kbd>G</kbd>      | Togge grid.
+<kbd>S</kbd>      | Save current state.
+<kbd>L</kbd>      | Load saved state.
+<kbd>C</kbd>      | Clear (Set state of all cells to 0).
+<kbd>R</kbd>      | Random state.
 
 ## Configuration
 Name               | Description
