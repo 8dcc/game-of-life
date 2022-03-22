@@ -306,7 +306,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	// End of the program
-	printf("Reached end of the program!\n");
+	if (DEBUG_PRINT == 0) printf("Reached end of the program!\n");
 	SDL_DestroyRenderer(fuckrenderers);
 	SDL_DestroyWindow(fuckwindows);
 	SDL_Quit();
