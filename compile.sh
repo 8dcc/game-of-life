@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check if sdl2 is installed
 if [[ $(command -v sdl2-config) == "" ]]; then
