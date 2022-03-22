@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 		SDL_Log("Unable to start: %s\n", SDL_GetError());
 		return 1;
 	}
-	printf("SLD started!\n");
+	if (DEBUG_PRINT == 0) printf("SLD started!\n");
 	
 	// Create window
 	SDL_Window* fuckwindows = SDL_CreateWindow("Conway's game of life", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_W, WINDOW_H, 0); 
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 		SDL_Quit();
 		return 1;
 	}
-	printf("Window created!\n");
+	if (DEBUG_PRINT == 0) printf("Window created!\n");
 
 	// Create renderer
 	Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 		SDL_Quit();
 		return 1;
 	}
-	printf("Renderer created!\n");
+	if (DEBUG_PRINT == 0) printf("Renderer created!\n");
 
 	// Create array for load function and clear it
 	char loadstate[LOAD_ARRAY_SIZE];
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
 	// Main loop
 	int running = 0, draw_grid_active = 0, close_cell_count = 0, current_load_pos = 0;
-	int space_pressed = 1, save_key_pressed = 1, load_key_pressed = 1, clear_key_pressed = 1, random_cells_key_pressed = 1;
+	int space_pressed = 1, clear_key_pressed = 1, random_cells_key_pressed = 1;
 	int mouse_pressed = 1, mouse_r_pressed = 1, mouse_x, mouse_y, mouser_x, mouser_y;
 	FILE *savefile, *loadfile;
 	SDL_Rect current_cell;
@@ -87,58 +87,23 @@ int main(int argc, char* argv[]) {
 		// Events
 		while (SDL_PollEvent(&fuckevents)) {
 			switch (fuckevents.type) {
-				// Window is closed?
-				case SDL_QUIT:
-					running = 1;
-					break;
-				case SDL_KEYDOWN:
-					// Check the pressed key
+				case SDL_QUIT:						running = 1;							break;	// Window is closed?
+				case SDL_KEYDOWN:				// Check the pressed key
 					switch (fuckevents.key.keysym.scancode) {
-						case SDL_SCANCODE_ESCAPE:
-							running = 1;
-							if (DEBUG_PRINT == 0) printf("Esc key pressed!\n");
-							break;
-						case SDL_SCANCODE_G:
-							draw_grid_active = !draw_grid_active;
-							if (DEBUG_PRINT == 0) printf("G key pressed!\n");
-							break;
-						case SDL_SCANCODE_SPACE:
-							space_pressed = 0;
-							break;
-						case SDL_SCANCODE_S:
-							save_key_pressed = 0;
-							if (DEBUG_PRINT == 0) printf("Save key pressed!\n");
-							break;
-						case SDL_SCANCODE_L:
-							load_key_pressed = 0;
-							if (DEBUG_PRINT == 0) printf("Load key pressed!\n");
-							break;
-						case SDL_SCANCODE_C:
-							clear_key_pressed = 0;
-							if (DEBUG_PRINT == 0) printf("Clear key pressed!\n");
-							break;
-						case SDL_SCANCODE_R:
-							random_cells_key_pressed = 0;
-							if (DEBUG_PRINT == 0) printf("Random cell key pressed!\n");
-							break;
-						case SDL_SCANCODE_H:
-							print_help();
-							break;
-						default:
-							break;
+						case SDL_SCANCODE_ESCAPE:	running = 1;							break;
+						case SDL_SCANCODE_G:		draw_grid_active = !draw_grid_active;	break;
+						case SDL_SCANCODE_SPACE:	space_pressed = 0;						break;
+						case SDL_SCANCODE_C:		clear_key_pressed = 0;					break;
+						case SDL_SCANCODE_R:		random_cells_key_pressed = 0;			break;
+						case SDL_SCANCODE_H:		print_help();							break;
+						default:					break;
 					}
 					break;
-				case SDL_KEYUP:
-					// Check the released key
+				case SDL_KEYUP:					// Check the released key
 					switch (fuckevents.key.keysym.scancode) {
-						case SDL_SCANCODE_SPACE:
-							space_pressed = 1;
-							if (DEBUG_PRINT == 0) printf("Space key released!\n");
-							break;
-						case SDL_SCANCODE_S:
-							save_key_pressed = 1;
+						case SDL_SCANCODE_SPACE:	space_pressed = 1;						break;
+						case SDL_SCANCODE_S:	// Save the current state of the game
 							
-							// Save the current state of the game
 							savefile = fopen("./progress.txt", "w+");
 							if (savefile == NULL) {
 								printf("There was am error opening the file for saving.\n");
@@ -150,16 +115,11 @@ int main(int argc, char* argv[]) {
 									fprintf(savefile, "%d", cell_grid[y][x]);
 								}
 							}
-							fclose(savefile);
-
-							printf("File saved as progress.txt!\n");
-
-							if (DEBUG_PRINT == 0) printf("Save key released!\n");
-							break;
-						case SDL_SCANCODE_L:
-							load_key_pressed = 1;
 							
-							// Save the current state of the game
+							fclose(savefile);
+							printf("File saved as progress.txt!\n");
+							break;
+						case SDL_SCANCODE_L:	// Load the saved state of the game						
 							loadfile = fopen("./progress.txt", "r");
 							if (loadfile == NULL) {
 								printf("There was am error opening the file for loading.\n");
@@ -167,7 +127,6 @@ int main(int argc, char* argv[]) {
 							}
 
 							fscanf(loadfile, "%s", &loadstate);
-
 							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 									// Not read a position longer than the loadfile size
@@ -179,32 +138,23 @@ int main(int argc, char* argv[]) {
 							}
 							current_load_pos = 0;
 							fclose(loadfile);
-							
 							printf("File loaded as progress.txt!\n");
-
-							if (DEBUG_PRINT == 0) printf("Load key released!\n");
 							break;
 						case SDL_SCANCODE_C:
 							clear_key_pressed = 1;
-
 							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 									cell_grid[y][x] = 0;
 								}
 							}
-
-							if (DEBUG_PRINT == 0) printf("Clear key released!\n");
 							break;
 						case SDL_SCANCODE_R:
 							random_cells_key_pressed = 1;
-
 							for (int y = 0; y < WINDOW_H/CELL_SIZE; y++) {
 								for (int x = 0; x < WINDOW_W/CELL_SIZE; x++) {
 									cell_grid[y][x] = rand() % 2;
 								}
 							}
-
-							if (DEBUG_PRINT == 0) printf("Random cell key released!\n");
 							break;
 						default:
 							break;
@@ -303,15 +253,8 @@ int main(int argc, char* argv[]) {
 						close_cell_count++;
 					} if (y < WINDOW_H/CELL_SIZE-1 && x < WINDOW_W/CELL_SIZE-1 && cell_grid[y+1][x+1] == 1) {
 						close_cell_count++;
-					} 
-
-					// Debug
-					if (DEBUG_PRINT == 0) {
-						if (close_cell_count > 0 && cell_grid[y][x] == 1) {
-							printf("Position [%d,%d] has %d cells close.\n", y, x, close_cell_count);
-						}
 					}
-
+					
 					// Based on the close cells, apply rule
 					if (cell_grid[y][x] == 1) {
 						if (close_cell_count < 2 || close_cell_count > 3) {
