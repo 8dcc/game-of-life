@@ -7,7 +7,7 @@ if [[ $(command -v sdl2-config) == "" ]]; then
 fi
 
 SDL_FLAGS=$(sdl2-config --cflags --libs)
-OUTPUT_FILE="game-of-life.o"
+OUTPUT_FILE="game-of-life.out"
 
 if [[ $1 == "" ]]; then
 	echo "No arguments. Please enter a file. Exiting..."
