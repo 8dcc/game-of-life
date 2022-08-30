@@ -17,7 +17,7 @@ fi
 # Compile the file
 gcc -o $OUTPUT_FILE $1 $SDL_FLAGS
 
-if [[ $2 == "comp" ]]; then
+if [[ $2 == "run" ]]; then
 	echo "Compiled! Running..."
 	./$OUTPUT_FILE
 fi
