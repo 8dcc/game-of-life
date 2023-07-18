@@ -3,13 +3,17 @@
 	<b><a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life">Conway's game of life</a> made in C using <a href="https://www.libsdl.org/index.php">sdl2</a>.</b><br><br>
 	<a href="https://github.com/8dcc/game-of-life/network/members"><img src="https://img.shields.io/github/forks/8dcc/game-of-life.svg?style=for-the-badge&logo=c&color=a8b9cc&logoColor=a8b9cc" alt="Forks"></a>
 	<a href="https://github.com/8dcc/game-of-life/stargazers"><img src="https://img.shields.io/github/stars/8dcc/game-of-life.svg?style=for-the-badge&logo=c&color=a8b9cc&logoColor=a8b9cc" alt="Stars"></a>
-</div>
+</div><br>
+
+> **Note**  
+> This project is old and the code sucks. I am going to improve it in the future.  
+> If you are interested in other projects I made with better code, check [this](https://github.com/stars/8dcc/lists/my-dope-shit).
 
 # Table of contents
-1. [Keys](https://github.com/8dcc/game-of-life#Keys)
-2. [Configuration](https://github.com/8dcc/game-of-life#Configuration)
-3. [Misc](https://github.com/8dcc/game-of-life#Misc)
-4. [TODO](https://github.com/8dcc/game-of-life#TODO)
+1. [Keys](#keys)
+2. [Configuration](#configuration)
+3. [Misc](#misc)
+4. [TODO](#todo)
 
 ## Keys
 Key               | Action
