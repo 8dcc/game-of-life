@@ -1,5 +1,5 @@
 /*
- *	Game of life made by https://github.com/r4v10l1
+ *	Game of life made by https://github.com/8dcc
  *	Feel free to fork and improve the code.
  *
  *	Using SDL2.
